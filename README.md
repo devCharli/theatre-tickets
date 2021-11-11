@@ -6,4 +6,4 @@
 - Display payment modal
 - After processing a payment, the selected seats are changed to be occupied
 
-[!demo]()
+![demo](https://github.com/devCharli/theatre-tickets/blob/main/movie.gif)

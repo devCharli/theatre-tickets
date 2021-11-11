@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
+import "./App.css";
 import MovieSelect from "./components/MovieSelect";
 import Screen from "./components/Screen";
 import Seats from "./components/Seats";
 import Total from "./components/Total";
 import Data from "./data/Data";
 import Payment from "./components/Payment";
-import "./App.css";
 
 function App() {
-  const [movies, setMovies] = useState([
+  const movies = [
     { title: "Parasite", price: "10", id: 0 },
     { title: "God Father", price: "11", id: 1 },
     { title: "Titanic", price: "8", id: 2 },
     { title: "Shawshank redemption", price: "7", id: 3 },
-  ]);
+  ];
 
+  // default setting
   const [selectedSeats, setSelectedSeats] = useState(0);
   const [selectedSeatsNum, setSelectedSeatsNum] = useState([]);
   const [booking, setBooking] = useState(false);
 
+  // movie selection
   const [movie, setMovie] = useState(() => {
     const savedMovie = localStorage.getItem("movie");
     if (savedMovie) {
@@ -28,6 +30,7 @@ function App() {
     }
   });
 
+  // seat selection
   const [seats, setSeats] = useState(() => {
     const savedSeats = localStorage.getItem("seats");
     if (savedSeats) {
@@ -36,14 +39,14 @@ function App() {
       return Data;
     }
   });
-
+  // seat toggle functionality
   const toggleAvailability = (id) => {
     const updatedSeats = seats.map((seat) =>
       seat.id === id ? { ...seat, available: !seat.available } : seat
     );
     setSeats(updatedSeats);
   };
-
+  // total price for total section
   const total = selectedSeats * parseInt(movie.price);
 
   useEffect(() => {
@@ -63,7 +66,18 @@ function App() {
 
   return (
     <div>
-      {booking === false ? (
+      {booking ? (
+        <Payment
+          className="root"
+          selectedSeatsNum={selectedSeatsNum}
+          movie={movie}
+          setMovie={setMovie}
+          total={total}
+          setBooking={setBooking}
+          seats={seats}
+          setSeats={setSeats}
+        />
+      ) : (
         <>
           <h1>Movie Booking</h1>
           <MovieSelect movies={movies} movie={movie} setMovie={setMovie} />
@@ -77,17 +91,6 @@ function App() {
             Book Ticket
           </button>
         </>
-      ) : (
-        <Payment
-          className="root"
-          selectedSeatsNum={selectedSeatsNum}
-          movie={movie}
-          setMovie={setMovie}
-          total={total}
-          setBooking={setBooking}
-          seats={seats}
-          setSeats={setSeats}
-        />
       )}
     </div>
   );

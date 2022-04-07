@@ -1,9 +1,32 @@
-# Movie Booking App
 
-- User can select a movie and seats & saved to local storage
-- User can toggle seats but cannot select the occupied ones
-- Display the number of selected seats, movie title and total price
-- Display payment modal
-- After processing a payment, the selected seats are changed to be occupied
+# Movie Booking 🍿
 
-![demo](https://github.com/devCharli/theatre-tickets/blob/main/movie.gif)
+This movie booking app allows moviegoers to book a movie and seats. I got the project idea from the vanilla javascript course I took. I wanted to built the same app with react. 
+
+I was very new to react when I built this app. As you can see my code, I was pretty lost... I tried to refactor it once but decided to build it again from scratch later. 
+
+Since I know react better now, I should use routing and contextAPI. Also, I should plan better component architectures.
+## 🛠 Skills
+React, CSS
+
+
+## Lessons Learned
+
+- localStorage
+- Higher Order Functions with Reduce
+- Updating data(json)
+- show/hide Modal 
+
+## Demo
+![moving booking](movie theatre).gif)
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  yarn
+  yarn start
+```
+

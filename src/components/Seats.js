@@ -4,7 +4,7 @@ const Seats = ({ seats, toggleAvailability }) => {
 
   const rows = newSeats.reduce(function (rows, key, index) {
     return (
-      (index % 8 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) &&
+      (index % 8 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) &&
       rows
     );
   }, []);

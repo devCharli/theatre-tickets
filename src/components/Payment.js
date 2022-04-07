@@ -1,11 +1,11 @@
 import { MdClose } from "react-icons/md";
 import { useState } from "react";
 const Payment = ({
-  selectedSeatsNum,
+  selectedSeatsArr,
   total,
   movie,
   setMovie,
-  setBooking,
+  setShowPayment,
   seats,
   setSeats,
 }) => {
@@ -22,11 +22,11 @@ const Payment = ({
       );
       setSeats(updatedSeats);
       setMovie({ title: "Parasite", price: "10", id: 0 });
-      setBooking(false);
+      setShowPayment(false);
     }
   };
 
-  return selectedSeatsNum ? (
+  return selectedSeatsArr ? (
     <div className="payment">
       <div className="movie-info">
         <h3>Movie information</h3>
@@ -36,7 +36,7 @@ const Payment = ({
         </p>
         <p>
           Seat Number:
-          {selectedSeatsNum.map((seat) => {
+          {selectedSeatsArr.map((seat) => {
             return <span key={seat}>&nbsp; {seat.toUpperCase()}&nbsp; </span>;
           })}
         </p>
@@ -62,7 +62,7 @@ const Payment = ({
       <MdClose
         className="payment-close-btn"
         onClick={() => {
-          setBooking(false);
+          setShowPayment(false);
         }}
       />
     </div>

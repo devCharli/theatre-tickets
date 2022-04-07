@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+import "./css/App.css";
+import Data from "./data/Data";
 import MovieSelect from "./components/MovieSelect";
 import Screen from "./components/Screen";
 import Seats from "./components/Seats";
 import Total from "./components/Total";
-import Data from "./data/Data";
 import Payment from "./components/Payment";
 
-function App() {
-  const movies = [
-    { title: "Parasite", price: "10", id: 0 },
-    { title: "God Father", price: "11", id: 1 },
-    { title: "Titanic", price: "8", id: 2 },
-    { title: "Shawshank redemption", price: "7", id: 3 },
-  ];
+const movies = [
+  { title: "Parasite", price: "10", id: 0 },
+  { title: "God Father", price: "11", id: 1 },
+  { title: "Titanic", price: "8", id: 2 },
+  { title: "Shawshank redemption", price: "7", id: 3 },
+];
 
+function App() {
   // default setting
   const [selectedSeats, setSelectedSeats] = useState(0);
-  const [selectedSeatsNum, setSelectedSeatsNum] = useState([]);
-  const [booking, setBooking] = useState(false);
+  const [selectedSeatsArr, setSelectedSeatsArr] = useState([]);
+  const [showPayment, setShowPayment] = useState(false);
+
+  console.log(selectedSeats);
 
   // movie selection
   const [movie, setMovie] = useState(() => {
@@ -39,6 +41,7 @@ function App() {
       return Data;
     }
   });
+
   // seat toggle functionality
   const toggleAvailability = (id) => {
     const updatedSeats = seats.map((seat) =>
@@ -56,7 +59,7 @@ function App() {
     );
     setSelectedSeats(updatedSeats.length);
     const seatNumbers = updatedSeats.map((seat) => seat.seatNum);
-    setSelectedSeatsNum(seatNumbers);
+    setSelectedSeatsArr(seatNumbers);
     localStorage.setItem("seats", JSON.stringify(seats));
   }, [seats]);
 
@@ -66,20 +69,21 @@ function App() {
 
   return (
     <div>
-      {booking ? (
+      {showPayment && selectedSeatsArr.length && (
         <Payment
           className="root"
-          selectedSeatsNum={selectedSeatsNum}
+          selectedSeatsArr={selectedSeatsArr}
           movie={movie}
           setMovie={setMovie}
           total={total}
-          setBooking={setBooking}
+          setShowPayment={setShowPayment}
           seats={seats}
           setSeats={setSeats}
         />
-      ) : (
+      )}
+      {!showPayment && (
         <>
-          <h1>Movie Booking</h1>
+          <h1>Movie Booking 🍿</h1>
           <MovieSelect movies={movies} movie={movie} setMovie={setMovie} />
           <div className="container">
             <Screen />
@@ -87,7 +91,7 @@ function App() {
           </div>
           <Total selectedSeats={selectedSeats} movie={movie} />
 
-          <button onClick={() => setBooking(true)} className="booking-btn">
+          <button onClick={() => setShowPayment(true)} className="booking-btn">
             Book Ticket
           </button>
         </>

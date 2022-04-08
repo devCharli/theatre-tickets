@@ -19,7 +19,7 @@ React, CSS
 
 ## Demo
 
-![moving booking](movie.gif)
+![movie](movie.gif)
 
 ## Run Locally
 
